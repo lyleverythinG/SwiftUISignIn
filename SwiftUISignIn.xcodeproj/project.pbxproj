@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		265ED0202D64746A00894F18 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265ED01D2D64746A00894F18 /* ContentView.swift */; };
+		26018CDA2D6487D500C55CFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CD52D6487D500C55CFB /* ContentView.swift */; };
+		26018CDB2D6487D500C55CFB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CD62D6487D500C55CFB /* HomeView.swift */; };
+		26018CDC2D6487D500C55CFB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CD72D6487D500C55CFB /* LoginView.swift */; };
+		26018CDD2D6487D500C55CFB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CD82D6487D500C55CFB /* RegisterView.swift */; };
+		26018CF22D64B1E800C55CFB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CF12D64B1B000C55CFB /* LoginViewModel.swift */; };
+		26018CF42D64B90900C55CFB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26018CF32D64B90900C55CFB /* RegisterViewModel.swift */; };
 		265ED0212D64746A00894F18 /* SwiftUISignInApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */; };
 		265ED0222D64746A00894F18 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265ED01A2D64746A00894F18 /* Preview Assets.xcassets */; };
 		265ED0232D64746A00894F18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 265ED01C2D64746A00894F18 /* Assets.xcassets */; };
@@ -17,16 +22,48 @@
 		265ED02C2D64787F00894F18 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 265ED02B2D64787F00894F18 /* FirebaseDatabase */; };
 		265ED02E2D64787F00894F18 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 265ED02D2D64787F00894F18 /* FirebaseFirestore */; };
 		265ED0302D64787F00894F18 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 265ED02F2D64787F00894F18 /* FirebaseStorage */; };
+		268A4D442D6598550080C98E /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268A4D432D6598550080C98E /* UserDataViewModel.swift */; };
+		268A4D4E2D65A8BE0080C98E /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26018CD52D6487D500C55CFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		26018CD62D6487D500C55CFB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		26018CD72D6487D500C55CFB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		26018CD82D6487D500C55CFB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		26018CF12D64B1B000C55CFB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		26018CF32D64B90900C55CFB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		265ED0092D6470B600894F18 /* SwiftUISignIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUISignIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		265ED01A2D64746A00894F18 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		265ED01C2D64746A00894F18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		265ED01D2D64746A00894F18 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISignInApp.swift; sourceTree = "<group>"; };
 		265ED0242D6474D500894F18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		268A4D432D6598550080C98E /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
+		268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		26018CDE2D648A1A00C55CFB /* Services */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		26018CE62D64977E00C55CFB /* Components */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Components;
+			sourceTree = "<group>";
+		};
+		268A4D3F2D65976C0080C98E /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		268A4D452D6599FF0080C98E /* Constants */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Constants;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		265ED0062D6470B600894F18 /* Frameworks */ = {
@@ -44,6 +81,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26018CD92D6487D500C55CFB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				26018CD52D6487D500C55CFB /* ContentView.swift */,
+				26018CD82D6487D500C55CFB /* RegisterView.swift */,
+				26018CD72D6487D500C55CFB /* LoginView.swift */,
+				26018CD62D6487D500C55CFB /* HomeView.swift */,
+				26018CE62D64977E00C55CFB /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		26018CF02D64B1A100C55CFB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */,
+				26018CF12D64B1B000C55CFB /* LoginViewModel.swift */,
+				26018CF32D64B90900C55CFB /* RegisterViewModel.swift */,
+				268A4D432D6598550080C98E /* UserDataViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		265ED0002D6470B600894F18 = {
 			isa = PBXGroup;
 			children = (
@@ -71,10 +131,14 @@
 		265ED01F2D64746A00894F18 /* SwiftUISignIn */ = {
 			isa = PBXGroup;
 			children = (
+				268A4D452D6599FF0080C98E /* Constants */,
+				268A4D3F2D65976C0080C98E /* Models */,
+				26018CF02D64B1A100C55CFB /* ViewModels */,
+				26018CD92D6487D500C55CFB /* Views */,
+				26018CDE2D648A1A00C55CFB /* Services */,
+				265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */,
 				265ED01B2D64746A00894F18 /* Preview Content */,
 				265ED01C2D64746A00894F18 /* Assets.xcassets */,
-				265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */,
-				265ED01D2D64746A00894F18 /* ContentView.swift */,
 				265ED0242D6474D500894F18 /* GoogleService-Info.plist */,
 			);
 			path = SwiftUISignIn;
@@ -94,6 +158,12 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				26018CDE2D648A1A00C55CFB /* Services */,
+				26018CE62D64977E00C55CFB /* Components */,
+				268A4D3F2D65976C0080C98E /* Models */,
+				268A4D452D6599FF0080C98E /* Constants */,
 			);
 			name = SwiftUISignIn;
 			packageProductDependencies = (
@@ -162,8 +232,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				265ED0202D64746A00894F18 /* ContentView.swift in Sources */,
+				26018CDA2D6487D500C55CFB /* ContentView.swift in Sources */,
+				26018CDB2D6487D500C55CFB /* HomeView.swift in Sources */,
+				268A4D4E2D65A8BE0080C98E /* AppViewModel.swift in Sources */,
+				26018CF22D64B1E800C55CFB /* LoginViewModel.swift in Sources */,
+				26018CDC2D6487D500C55CFB /* LoginView.swift in Sources */,
+				26018CDD2D6487D500C55CFB /* RegisterView.swift in Sources */,
+				26018CF42D64B90900C55CFB /* RegisterViewModel.swift in Sources */,
 				265ED0212D64746A00894F18 /* SwiftUISignInApp.swift in Sources */,
+				268A4D442D6598550080C98E /* UserDataViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
