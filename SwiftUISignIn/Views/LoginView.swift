@@ -8,15 +8,6 @@
 import SwiftUI
 import FirebaseAuth
 
-/// Extension to dismiss the keyboard
-extension UIApplication {
-    func endEditing() {
-        sendAction(#selector(UIResponder.resignFirstResponder),
-                   to: nil, from: nil, for: nil)
-    }
-}
-
-
 struct LoginView: View {
     @StateObject private var loginViewModel: LoginViewModel
     @ObservedObject private var appViewModel = AppViewModel.shared

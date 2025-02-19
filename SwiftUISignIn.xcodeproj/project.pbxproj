@@ -63,6 +63,11 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		268A4D542D65E0710080C98E /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +136,7 @@
 		265ED01F2D64746A00894F18 /* SwiftUISignIn */ = {
 			isa = PBXGroup;
 			children = (
+				268A4D542D65E0710080C98E /* Extensions */,
 				268A4D452D6599FF0080C98E /* Constants */,
 				268A4D3F2D65976C0080C98E /* Models */,
 				26018CF02D64B1A100C55CFB /* ViewModels */,
@@ -164,6 +170,7 @@
 				26018CE62D64977E00C55CFB /* Components */,
 				268A4D3F2D65976C0080C98E /* Models */,
 				268A4D452D6599FF0080C98E /* Constants */,
+				268A4D542D65E0710080C98E /* Extensions */,
 			);
 			name = SwiftUISignIn;
 			packageProductDependencies = (

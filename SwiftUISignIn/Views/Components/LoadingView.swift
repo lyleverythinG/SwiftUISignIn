@@ -12,13 +12,13 @@ struct LoadingView: View {
         ZStack {
             Color.black.opacity(0.4)
                 .ignoresSafeArea()
-
+            
             VStack {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .scaleEffect(1.5)
                     .padding()
-
+                
                 CustomText.body("Please wait...")
                     .foregroundStyle(.white)
                     .padding(.top, 8)

@@ -40,20 +40,20 @@ class UserDataViewModel: ObservableObject {
     }
     
     /// Clears the user session when signing out
-       func signOut() {
-           let result = AuthService.shared.signOut()
-           
-           DispatchQueue.main.async {
-               switch result {
-               case .success:
-                   print("User successfully signed out.")
-                   self.currentUser = nil  // Clear user session
-                   AppViewModel.shared.checkUserSession()
-                   
-               case .failure(let error):
-                   self.errorMessage = error.localizedDescription
-                   print("Sign-out failed:", error.localizedDescription)
-               }
-           }
-       }
+    func signOut() {
+        let result = AuthService.shared.signOut()
+        
+        DispatchQueue.main.async {
+            switch result {
+            case .success:
+                print("User successfully signed out.")
+                self.currentUser = nil  // Clear user session
+                AppViewModel.shared.checkUserSession()
+                
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                print("Sign-out failed:", error.localizedDescription)
+            }
+        }
+    }
 }

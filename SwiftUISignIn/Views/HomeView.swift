@@ -16,7 +16,7 @@ struct HomeView: View {
     }
     
     @State private var navigateToLogin = false
-
+    
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
@@ -33,14 +33,14 @@ struct HomeView: View {
                         .redacted(reason: userData.isLoading ? .placeholder : [])
                 }
                 .padding(.top, 40)
-
+                
                 // Email Display
                 CustomText.body(userData.currentUser?.email ?? "")
                     .foregroundStyle(.gray)
                     .redacted(reason: userData.isLoading ? .placeholder : [])
                 
                 Spacer()
-
+                
                 // Sign Out Button
                 Button(action: handleSignOut) {
                     CustomText.headLine("Sign Out")
@@ -52,7 +52,7 @@ struct HomeView: View {
                 }
                 .padding(.horizontal, 20)
                 .disabled(userData.isLoading)
-
+                
                 Spacer()
             }
             .padding()
@@ -88,7 +88,7 @@ struct HomeView: View {
             }
         }
     }
-
+    
     /// Triggers the sign out functionality.
     private func handleSignOut() {
         userData.signOut()
