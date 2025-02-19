@@ -32,3 +32,8 @@ _A simple native iOS authentication app (login, registration, signout) using Fir
    * Download the `GoogleService-Info.plist` file.
    * Move it into the `SwiftUISignIn` project root folder.
    * Run the app.
+
+# App Demo
+
+https://github.com/user-attachments/assets/becf7b34-95c3-4110-bdb2-ff164040ce66
+
