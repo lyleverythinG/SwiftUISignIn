@@ -22,10 +22,7 @@ _A simple native iOS authentication app (login, registration, signout) using Fir
 # 🔧 Setup Guide 
 
 1. Clone the repo
-2. Install Dependencies. 
-   * `sudo gem install cocoapods`
-   * `pod install`
-3. Set Up Firebase
+2. Set Up Firebase
    * Firebase Console - https://console.firebase.google.com/
    * Enable Firebase Authentication -> Email and Password
    * Enable Firestore Database (You may use `Test Mode for testing purposes`)
