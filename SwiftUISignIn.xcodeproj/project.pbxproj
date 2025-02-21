@@ -23,7 +23,6 @@
 		265ED02E2D64787F00894F18 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 265ED02D2D64787F00894F18 /* FirebaseFirestore */; };
 		265ED0302D64787F00894F18 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 265ED02F2D64787F00894F18 /* FirebaseStorage */; };
 		268A4D442D6598550080C98E /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268A4D432D6598550080C98E /* UserDataViewModel.swift */; };
-		268A4D4E2D65A8BE0080C98E /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUISignInApp.swift; sourceTree = "<group>"; };
 		265ED0242D6474D500894F18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		268A4D432D6598550080C98E /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
-		268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -101,7 +99,6 @@
 		26018CF02D64B1A100C55CFB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				268A4D4D2D65A8BE0080C98E /* AppViewModel.swift */,
 				26018CF12D64B1B000C55CFB /* LoginViewModel.swift */,
 				26018CF32D64B90900C55CFB /* RegisterViewModel.swift */,
 				268A4D432D6598550080C98E /* UserDataViewModel.swift */,
@@ -112,6 +109,7 @@
 		265ED0002D6470B600894F18 = {
 			isa = PBXGroup;
 			children = (
+				265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */,
 				265ED01F2D64746A00894F18 /* SwiftUISignIn */,
 				265ED00A2D6470B600894F18 /* Products */,
 			);
@@ -142,7 +140,6 @@
 				26018CF02D64B1A100C55CFB /* ViewModels */,
 				26018CD92D6487D500C55CFB /* Views */,
 				26018CDE2D648A1A00C55CFB /* Services */,
-				265ED01E2D64746A00894F18 /* SwiftUISignInApp.swift */,
 				265ED01B2D64746A00894F18 /* Preview Content */,
 				265ED01C2D64746A00894F18 /* Assets.xcassets */,
 				265ED0242D6474D500894F18 /* GoogleService-Info.plist */,
@@ -241,7 +238,6 @@
 			files = (
 				26018CDA2D6487D500C55CFB /* ContentView.swift in Sources */,
 				26018CDB2D6487D500C55CFB /* HomeView.swift in Sources */,
-				268A4D4E2D65A8BE0080C98E /* AppViewModel.swift in Sources */,
 				26018CF22D64B1E800C55CFB /* LoginViewModel.swift in Sources */,
 				26018CDC2D6487D500C55CFB /* LoginView.swift in Sources */,
 				26018CDD2D6487D500C55CFB /* RegisterView.swift in Sources */,

@@ -9,16 +9,14 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @StateObject private var loginViewModel: LoginViewModel
-    @ObservedObject private var appViewModel = AppViewModel.shared
-    
-    init(vm: LoginViewModel = LoginViewModel()) {
-        _loginViewModel = StateObject(wrappedValue: vm)
-    }
+    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var registerViewModel: RegisterViewModel
+    @EnvironmentObject var userDataViewModel: UserDataViewModel
     
     @State private var navigateToRegister = false
     @State private var navigateToHome = false
     
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
@@ -28,7 +26,11 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .padding(.bottom, 20)
                     
-                    EmailTextField(text: $loginViewModel.email, onTextChange: loginViewModel.handleEmailChange)
+                    // Email Input
+                    EmailTextField(
+                        text: $loginViewModel.email,
+                        onTextChange: loginViewModel.handleEmailChange
+                    )
                     
                     if loginViewModel.hasInteractedWithEmail, let emailErrorMsg = loginViewModel.emailErrorMsg {
                         CustomText.footNote(emailErrorMsg)
@@ -37,7 +39,11 @@ struct LoginView: View {
                     
                     Spacer().frame(height: 8)
                     
-                    PasswordTextField(text: $loginViewModel.password, onTextChange: loginViewModel.handlePasswordChange)
+                    // Password Input
+                    PasswordTextField(
+                        text: $loginViewModel.password,
+                        onTextChange: loginViewModel.handlePasswordChange
+                    )
                     
                     if loginViewModel.hasInteractedWithPassword, let passwordErrorMsg = loginViewModel.passwordErrorMsg {
                         CustomText.footNote(passwordErrorMsg)
@@ -76,6 +82,9 @@ struct LoginView: View {
                     .padding(.top, 5)
                     .navigationDestination(isPresented: $navigateToRegister) {
                         RegisterView()
+                            .onAppear {
+                                UIApplication.shared.endEditing()
+                            }
                     }
                 }
                 .padding()
@@ -84,8 +93,7 @@ struct LoginView: View {
                 // Loading Indicator Overlay
                 if loginViewModel.isLoading {
                     ZStack {
-                        Color.black.opacity(0.3)
-                            .ignoresSafeArea()
+                        Color.black.opacity(0.3).ignoresSafeArea()
                         
                         VStack(spacing: 12) {
                             ProgressView()
@@ -102,8 +110,10 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .onChange(of: appViewModel.isUserLoggedIn) {_, isLoggedIn in
+            // MARK: - Handle Navigation
+            .onChange(of: loginViewModel.isLoginSuccessful) { _, isLoggedIn in
                 if isLoggedIn {
+                    userDataViewModel.loadUserData()
                     navigateToHome = true
                 }
             }
@@ -112,8 +122,4 @@ struct LoginView: View {
             }
         }
     }
-}
-
-#Preview {
-    LoginView()
 }

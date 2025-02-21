@@ -9,37 +9,49 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+/// ViewModel responsible for managing user-related data and session state.
 class UserDataViewModel: ObservableObject {
+    // MARK: - Published Properties
     @Published var currentUser: UserModel?
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    static let shared = UserDataViewModel()
-    private let db = Firestore.firestore()
     
-    private init() {}
+    // MARK: - Load User Data
     
-    /// Loads user data from Firestore after login or registration
-    func loadUserData(userId: String) {
+    /// Loads user data from Firestore after login or registration.
+    func loadUserData() {
+        guard let userId = AuthService.shared.getCurrentUserId else {
+            self.errorMessage = "User ID not found."
+            return
+        }
+        
         isLoading = true
         errorMessage = nil
         
-        db.collection(FirestoreConstants.users).document(userId).getDocument { document, error in
+        FirestoreService.shared.fetchUserData(userId: userId) { [weak self] result in
             DispatchQueue.main.async {
+                guard let self = self else { return }
                 self.isLoading = false
                 
-                if let error = error {
-                    self.errorMessage = error.localizedDescription
-                } else if let document = document, document.exists, let data = document.data() {
+                switch result {
+                case .success(let data):
                     self.currentUser = UserModel(id: userId, data: data)
-                } else {
-                    self.errorMessage = "User data not found."
+                case .failure(let error):
+                    self.errorMessage = error.errorDescription
                 }
             }
         }
     }
     
-    /// Clears the user session when signing out
+    /// This will clear the UserModel after the user signs out.
+    func resetDataToDefault() {
+        currentUser = nil
+    }
+    
+    // MARK: - Sign Out User
+    
+    /// Clears the user session when signing out.
     func signOut() {
         let result = AuthService.shared.signOut()
         
@@ -48,8 +60,6 @@ class UserDataViewModel: ObservableObject {
             case .success:
                 print("User successfully signed out.")
                 self.currentUser = nil  // Clear user session
-                AppViewModel.shared.checkUserSession()
-                
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 print("Sign-out failed:", error.localizedDescription)

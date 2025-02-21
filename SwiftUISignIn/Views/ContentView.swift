@@ -9,17 +9,19 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject private var appViewModel = AppViewModel()
+    @EnvironmentObject var userDataViewModel: UserDataViewModel
+    @ObservedObject private var authService = AuthService.shared
     
     var body: some View {
-        if appViewModel.isUserLoggedIn {
-            HomeView()
-        } else {
-            LoginView()
+        Group {
+            if authService.isUserLoggedIn {
+                HomeView()
+            } else {
+                LoginView()
+            }
+        }
+        .onAppear {
+            authService.checkUserSession()
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

@@ -8,8 +8,10 @@
 import SwiftUI
 import FirebaseAuth
 
+/// ViewModel responsible for managing user login.
 class LoginViewModel: ObservableObject {
-    //MARK: - Published Properties
+    
+    // MARK: - Published Properties
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isLoading: Bool = false
@@ -18,6 +20,7 @@ class LoginViewModel: ObservableObject {
     @Published var passwordErrorMsg: String?
     @Published var hasInteractedWithEmail = false
     @Published var hasInteractedWithPassword = false
+    @Published var isLoginSuccessful: Bool = false
     
     /// Returns trimmed email input.
     private var trimmedEmail: String {
@@ -49,26 +52,36 @@ class LoginViewModel: ObservableObject {
         !isEmailAndPasswordEmpty && isEmailAndPasswordValid
     }
     
+    // MARK: - Input Validation Handlers
+    
     /// Handles real-time validation when the user types in the email field.
     func handleEmailChange(_ newText: String) {
         hasInteractedWithEmail = true
-        emailErrorMsg = newText.isEmpty ? "Email should not be empty." : (!isEmailValid ? "Please enter a valid email address." : nil)
+        emailErrorMsg = newText.isEmpty
+        ? "Email should not be empty."
+        : (!isEmailValid ? "Please enter a valid email address." : nil)
     }
     
     /// Handles real-time validation when the user types in the password field.
     func handlePasswordChange(_ newText: String) {
         hasInteractedWithPassword = true
-        passwordErrorMsg = newText.isEmpty ? "Password is required." : (!isPasswordValid ? "Your password must be at least 6 characters long." : nil)
+        passwordErrorMsg = newText.isEmpty
+        ? "Password is required."
+        : (!isPasswordValid ? "Your password must be at least 6 characters long." : nil)
     }
     
-    /// Handles user sign-in with Firebase Authentication and updates session state.
+    // MARK: - Login Functionality
+    
+    /// Handles user sign-in with Firebase Authentication.
     func signIn() {
         guard isFormValid else {
-            errorMessage = email.isEmpty ? "Email should not be empty."
-            : password.isEmpty ? "Password should not be empty."
-            : !isEmailValid ? "Invalid email format."
+            errorMessage = email.isEmpty
+            ? "Email should not be empty."
+            : password.isEmpty
+            ? "Password should not be empty."
+            : !isEmailValid
+            ? "Invalid email format."
             : "Your password must be at least 6 characters long."
-            
             return
         }
         
@@ -85,19 +98,21 @@ class LoginViewModel: ObservableObject {
                     print("Successfully logged in!")
                     UIApplication.shared.endEditing()
                     
-                    AppViewModel.shared.isUserLoggedIn = true
+                    self.resetFieldsData()
                     
-                    if let userId = AuthService.shared.getCurrentUserId {
-                        UserDataViewModel.shared.loadUserData(userId: userId)
-                    }
+                    self.isLoginSuccessful = true
                 case .failure(let error):
                     self.errorMessage = error.errorDescription
                 }
             }
         }
     }
+    
+    /// Resets the email and password fields.
+    func resetFieldsData() {
+        self.email = ""
+        self.password = ""
+        self.emailErrorMsg = ""
+        self.passwordErrorMsg = ""
+    }
 }
-
-
-
-
