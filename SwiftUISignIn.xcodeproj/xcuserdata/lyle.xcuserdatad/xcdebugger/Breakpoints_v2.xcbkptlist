@@ -7,49 +7,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "11AEBDDF-70AC-4373-9A7D-40CF529121BE"
+            uuid = "D4A35C93-A8E9-40FA-828D-B6D7F278D1E5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftUISignIn/Services/AuthService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "AuthService"
-            landmarkType = "3">
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "listenForAuthChanges()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F10EC08-7BDF-40A2-A96D-A8F82E7B40A4"
-            shouldBeEnabled = "No"
+            uuid = "5E3DCF62-F9FB-42F5-A9B2-78CCACC92780"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SwiftUISignIn/ViewModels/LoginViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12"
-            landmarkName = "LoginViewModel"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "983D7F64-2E48-4088-BDDC-C5C4B5338EED"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SwiftUISignIn/ViewModels/LoginViewModel.swift"
+            filePath = "SwiftUISignIn/Views/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
             endingLineNumber = "11"
-            landmarkName = "LoginViewModel"
-            landmarkType = "3">
+            landmarkName = "HomeView"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

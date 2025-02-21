@@ -8,8 +8,9 @@
 import SwiftUI
 import FirebaseAuth
 
+/// ViewModel responsible for managing user registration and validation.
 class RegisterViewModel: ObservableObject {
-    //MARK: - Published Properties
+    // MARK: - Published Properties
     @Published var fullName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
@@ -23,7 +24,9 @@ class RegisterViewModel: ObservableObject {
     @Published var passwordErrorMsg: String?
     @Published var isRegistered = false
     
-    /// Returns trimmed email input.
+    // MARK: - Validation Computed Properties
+    
+    /// Validates if the full name input is not empty.
     var isFullNameValid: Bool {
         !fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
@@ -33,7 +36,7 @@ class RegisterViewModel: ObservableObject {
         ValidationService.isValidEmail(email.trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
-    /// Ensures the password meets minimum length requirements.
+    /// Ensures the password meets the minimum length requirements.
     var isPasswordValid: Bool {
         ValidationService.isValidPassword(password)
     }
@@ -43,24 +46,30 @@ class RegisterViewModel: ObservableObject {
         isFullNameValid && isEmailValid && isPasswordValid
     }
     
-    /// Handles validation when the user types in the full name field
+    // MARK: - Input Validation Handlers
+    
     func handleFullNameChange(_ newText: String) {
         hasInteractedWithFullName = true
-        fullNameErrorMsg = newText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Full name should not be empty" : nil
+        fullNameErrorMsg = newText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        ? "Full name should not be empty."
+        : nil
     }
     
-    /// Handles validation when the user types in the email field
     func handleEmailChange(_ newText: String) {
         hasInteractedWithEmail = true
-        emailErrorMsg = newText.isEmpty ? "Email should not be empty" : (!isEmailValid ? "Please enter a valid email address." : nil)
+        emailErrorMsg = newText.isEmpty
+        ? "Email should not be empty."
+        : (!isEmailValid ? "Please enter a valid email address." : nil)
     }
     
-    /// Handles validation when the user types in the password field
     func handlePasswordChange(_ newText: String) {
         hasInteractedWithPassword = true
-        passwordErrorMsg = newText.isEmpty ? "Password is required." : (!isPasswordValid ? "Your password must be at least 6 characters." : nil)
+        passwordErrorMsg = newText.isEmpty
+        ? "Password is required."
+        : (!isPasswordValid ? "Your password must be at least 6 characters long." : nil)
     }
     
+    // MARK: - Registration Logic
     
     /// Handles user registration with Firebase Authentication and saves user data to Firestore.
     func register(completion: (() -> Void)? = nil) {
@@ -77,8 +86,6 @@ class RegisterViewModel: ObservableObject {
                 switch result {
                 case .success:
                     print("Account created successfully!")
-                    
-                    // Dismiss keyboard after successful registration.
                     UIApplication.shared.endEditing()
                     
                     guard let userId = AuthService.shared.getCurrentUserId else {
@@ -86,10 +93,9 @@ class RegisterViewModel: ObservableObject {
                         return
                     }
                     
-                    // Save user data to Firestore.
-                    self.saveUserToFirestore(userId: userId, fullName: self.fullName, email: self.email, completion: completion)
+                    // Save user data to Firestore
+                    self.saveUserToFirestore(userId: userId, completion: completion)
                     
-                    self.isRegistered = true
                     
                 case .failure(let error):
                     self.errorMessage = error.errorDescription
@@ -98,23 +104,20 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    /// Saves authenticated user details to Firestore and updates the local user data.
-    private func saveUserToFirestore(userId: String, fullName: String, email: String, completion: (() -> Void)?) {
+    /// Saves authenticated user details to Firestore.
+    private func saveUserToFirestore(userId: String, completion: (() -> Void)?) {
         FirestoreService.shared.saveUserData(userId: userId, fullName: fullName, email: email) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 
                 switch result {
                 case .success:
-                    print("User data saved to Firestore!")
-                    
-                    // Load userData
-                    UserDataViewModel.shared.loadUserData(userId: userId)
-                    
+                    print("User data saved to Firestore successfully!")
+                    self.isRegistered = true
                     completion?()
                     
                 case .failure(let error):
-                    self.errorMessage = error.localizedDescription
+                    self.errorMessage = error.errorDescription
                 }
             }
         }

@@ -9,35 +9,29 @@ import SwiftUI
 import FirebaseAuth
 
 struct HomeView: View {
-    @ObservedObject var userData: UserDataViewModel
-    
-    init(userDataViewModel: UserDataViewModel = .shared) {
-        self.userData = userDataViewModel
-    }
-    
+    @StateObject var userDataViewModel = UserDataViewModel()
     @State private var navigateToLogin = false
     
+    // MARK: - Body
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
-                
+                // Welcome Section
                 VStack(spacing: 8) {
-                    // Welcome Header
-                    CustomText.title2("Welcome,")
+                    CustomText.title2("Welcome")
                         .fontWeight(.medium)
                     
-                    // Full Name
-                    CustomText.largeTitle(userData.currentUser?.fullName ?? "")
+                    CustomText.largeTitle(userDataViewModel.currentUser?.fullName ?? "Loading...")
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
-                        .redacted(reason: userData.isLoading ? .placeholder : [])
+                        .redacted(reason: userDataViewModel.isLoading ? .placeholder : [])
                 }
                 .padding(.top, 40)
                 
                 // Email Display
-                CustomText.body(userData.currentUser?.email ?? "")
+                CustomText.body(userDataViewModel.currentUser?.email ?? "Fetching email...")
                     .foregroundStyle(.gray)
-                    .redacted(reason: userData.isLoading ? .placeholder : [])
+                    .redacted(reason: userDataViewModel.isLoading ? .placeholder : [])
                 
                 Spacer()
                 
@@ -51,7 +45,7 @@ struct HomeView: View {
                         .cornerRadius(8)
                 }
                 .padding(.horizontal, 20)
-                .disabled(userData.isLoading)
+                .disabled(userDataViewModel.isLoading)
                 
                 Spacer()
             }
@@ -60,17 +54,21 @@ struct HomeView: View {
                 ContentView()
             }
             .onAppear {
-                if userData.currentUser == nil {
-                    userData.loadUserData(userId: AuthService.shared.getCurrentUserId ?? "")
+                // Load user data if not already loaded
+                if userDataViewModel.currentUser == nil {
+                    guard AuthService.shared.getCurrentUserId != nil else {
+                        handleSignOut()
+                        return
+                    }
+                    userDataViewModel.loadUserData()
                 }
             }
-            .disabled(userData.isLoading)
+            .disabled(userDataViewModel.isLoading)
             
-            // Loading Indicator Overlay
-            if userData.isLoading {
+            // Loading Overlay
+            if userDataViewModel.isLoading {
                 ZStack {
-                    Color.black.opacity(0.3)
-                        .ignoresSafeArea()
+                    Color.black.opacity(0.3).ignoresSafeArea()
                     
                     VStack(spacing: 12) {
                         ProgressView()
@@ -89,13 +87,15 @@ struct HomeView: View {
         }
     }
     
-    /// Triggers the sign out functionality.
+    // MARK: - Sign Out Logic
     private func handleSignOut() {
-        userData.signOut()
-        navigateToLogin = true
+        let result = AuthService.shared.signOut()
+        switch result {
+        case .success:
+            
+            navigateToLogin = true
+        case .failure(let error):
+            print("Sign-out failed: \(error.localizedDescription)")
+        }
     }
-}
-
-#Preview {
-    HomeView()
 }

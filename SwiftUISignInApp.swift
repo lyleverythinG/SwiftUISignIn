@@ -10,6 +10,7 @@ import Firebase
 
 @main
 struct SwiftUISignInApp: App {
+    
     init() {
         FirebaseApp.configure()
     }

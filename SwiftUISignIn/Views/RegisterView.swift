@@ -8,17 +8,14 @@
 import SwiftUI
 import FirebaseAuth
 
+
 struct RegisterView: View {
-    @StateObject private var vm: RegisterViewModel
+    @StateObject var registerViewModel = RegisterViewModel()
     @State private var navigateToHome = false
-    
-    
-    init(vm: RegisterViewModel = RegisterViewModel()) {
-        _vm = StateObject(wrappedValue: vm)
-    }
     
     @Environment(\.presentationMode) var presentationMode
     
+    // MARK: - Body
     var body: some View {
         ZStack {
             VStack {
@@ -28,46 +25,55 @@ struct RegisterView: View {
                     .padding(.bottom, 20)
                 
                 // Full Name Field
-                NameField(text: $vm.fullName, onTextChange: vm.handleFullNameChange)
+                NameField(
+                    text: $registerViewModel.fullName,
+                    onTextChange: registerViewModel.handleFullNameChange
+                )
                 
-                if vm.hasInteractedWithFullName, let fullNameErrorMsg = vm.fullNameErrorMsg {
+                if registerViewModel.hasInteractedWithFullName, let fullNameErrorMsg = registerViewModel.fullNameErrorMsg {
                     CustomText.footNote(fullNameErrorMsg)
                         .foregroundStyle(.red)
                 }
                 
                 // Email Field
-                EmailTextField(text: $vm.email, onTextChange: vm.handleEmailChange)
+                EmailTextField(
+                    text: $registerViewModel.email,
+                    onTextChange: registerViewModel.handleEmailChange
+                )
                 
-                if vm.hasInteractedWithEmail, let emailErrorMsg = vm.emailErrorMsg {
+                if registerViewModel.hasInteractedWithEmail, let emailErrorMsg = registerViewModel.emailErrorMsg {
                     CustomText.footNote(emailErrorMsg)
                         .foregroundStyle(.red)
                 }
                 
                 // Password Field
-                PasswordTextField(text: $vm.password, onTextChange: vm.handlePasswordChange)
+                PasswordTextField(
+                    text: $registerViewModel.password,
+                    onTextChange: registerViewModel.handlePasswordChange
+                )
                 
-                if vm.hasInteractedWithPassword, let passwordErrorMsg = vm.passwordErrorMsg {
+                if registerViewModel.hasInteractedWithPassword, let passwordErrorMsg = registerViewModel.passwordErrorMsg {
                     CustomText.footNote(passwordErrorMsg)
                         .foregroundStyle(.red)
                 }
                 
                 // Register Button
                 Button(action: {
-                    vm.register()
+                    registerViewModel.register()
                 }) {
                     CustomText.headLine("Sign Up")
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(vm.isFormValid ? Color.blue : Color.gray)
-                        .opacity(vm.isFormValid ? 1.0 : 0.5)
+                        .background(registerViewModel.isFormValid ? Color.blue : Color.gray)
+                        .opacity(registerViewModel.isFormValid ? 1.0 : 0.5)
                         .cornerRadius(8)
                 }
-                .disabled(!vm.isFormValid || vm.isLoading)
+                .disabled(!registerViewModel.isFormValid || registerViewModel.isLoading)
                 .padding(.top, 10)
                 
                 // Error Message (Firebase Errors)
-                if let errorMessage = vm.errorMessage {
+                if let errorMessage = registerViewModel.errorMessage {
                     CustomText.footNote(errorMessage)
                         .foregroundStyle(.red)
                         .padding(.top, 5)
@@ -82,13 +88,12 @@ struct RegisterView: View {
             }
             .padding()
             .navigationBarHidden(true)
-            .disabled(vm.isLoading) // Disable interactions when loading
+            .disabled(registerViewModel.isLoading)
             
             // Loading Indicator Overlay
-            if vm.isLoading {
+            if registerViewModel.isLoading {
                 ZStack {
-                    Color.black.opacity(0.3)
-                        .ignoresSafeArea()
+                    Color.black.opacity(0.3).ignoresSafeArea()
                     
                     VStack(spacing: 12) {
                         ProgressView()
@@ -105,7 +110,8 @@ struct RegisterView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .onChange(of: vm.isRegistered) {_, isRegistered in
+        // MARK: - Navigation to HomeView on Successful Registration
+        .onChange(of: registerViewModel.isRegistered) { _, isRegistered in
             if isRegistered {
                 navigateToHome = true
             }
@@ -114,8 +120,4 @@ struct RegisterView: View {
             HomeView()
         }
     }
-}
-
-#Preview {
-    RegisterView()
 }

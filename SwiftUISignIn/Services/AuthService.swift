@@ -7,12 +7,21 @@
 
 import FirebaseAuth
 
-/// A singleton service responsible for handling our Firebase Authentication.
-final class AuthService {
+/// A service responsible for handling Firebase Authentication.
+final class AuthService : ObservableObject {
+    // MARK: - Published Properties
+    @Published var isUserLoggedIn: Bool = false
+    
     static let shared = AuthService()
+    
     private let auth = Auth.auth()
     
-    private init() {}
+    private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
+    
+    /// Initializes the service and starts listening for authentication state changes.
+    init() {
+        listenForAuthChanges()
+    }
     
     /// Retrieves the currently authenticated Firebase user.
     var getCurrentUser: User? {
@@ -42,11 +51,12 @@ final class AuthService {
             return
         }
         
-        auth.signIn(withEmail: email, password: password) { result, error in
+        auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    completion(.failure(self.mapFirebaseError(error)))
+                    completion(.failure(self?.mapFirebaseError(error) ?? .unknown("Unknown error")))
                 } else {
+                    self?.isUserLoggedIn = true
                     completion(.success(()))
                 }
             }
@@ -70,11 +80,12 @@ final class AuthService {
             return
         }
         
-        auth.createUser(withEmail: trimmedEmail, password: password) { result, error in
+        auth.createUser(withEmail: trimmedEmail, password: password) { [weak self] result, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    completion(.failure(self.mapFirebaseError(error)))
+                    completion(.failure(self?.mapFirebaseError(error) ?? .unknown("Unknown error")))
                 } else {
+                    self?.isUserLoggedIn = true
                     completion(.success(()))
                 }
             }
@@ -86,14 +97,24 @@ final class AuthService {
     func signOut() -> Result<Void, AuthError> {
         do {
             try auth.signOut()
+            isUserLoggedIn = false
             return .success(())
         } catch {
             return .failure(.unknown(error.localizedDescription))
         }
     }
     
-    // MARK: - Firebase Error Handling
+    /// Listens for authentication state changes from Firebase.
+    private func listenForAuthChanges() {
+        authStateListenerHandle = auth.addStateDidChangeListener { [weak self] _, user in
+            self?.isUserLoggedIn = user != nil
+        }
+    }
     
+    /// Checks if a user session already exists
+    func checkUserSession() {
+        isUserLoggedIn = auth.currentUser != nil
+    }
     
     /// Maps Firebase authentication errors to `AuthError` for better error messaging.
     /// - Parameter error: The Firebase authentication error.
@@ -172,4 +193,3 @@ enum AuthError: Error, LocalizedError {
         }
     }
 }
-
