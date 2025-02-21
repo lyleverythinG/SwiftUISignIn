@@ -9,9 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
-    @EnvironmentObject var registerViewModel: RegisterViewModel
-    @EnvironmentObject var userDataViewModel: UserDataViewModel
+    @StateObject var loginViewModel = LoginViewModel()
     
     @State private var navigateToRegister = false
     @State private var navigateToHome = false
@@ -113,7 +111,6 @@ struct LoginView: View {
             // MARK: - Handle Navigation
             .onChange(of: loginViewModel.isLoginSuccessful) { _, isLoggedIn in
                 if isLoggedIn {
-                    userDataViewModel.loadUserData()
                     navigateToHome = true
                 }
             }

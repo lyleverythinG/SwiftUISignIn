@@ -10,9 +10,6 @@ import Firebase
 
 @main
 struct SwiftUISignInApp: App {
-    @StateObject var loginViewModel = LoginViewModel()
-    @StateObject var registerViewModel = RegisterViewModel()
-    @StateObject var userDataViewModel = UserDataViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -21,9 +18,6 @@ struct SwiftUISignInApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(loginViewModel)
-                .environmentObject(registerViewModel)
-                .environmentObject(userDataViewModel)
         }
     }
 }

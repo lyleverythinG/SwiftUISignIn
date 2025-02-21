@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @EnvironmentObject var userDataViewModel: UserDataViewModel
     @ObservedObject private var authService = AuthService.shared
     
     var body: some View {

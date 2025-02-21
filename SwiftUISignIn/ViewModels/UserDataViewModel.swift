@@ -44,11 +44,6 @@ class UserDataViewModel: ObservableObject {
         }
     }
     
-    /// This will clear the UserModel after the user signs out.
-    func resetDataToDefault() {
-        currentUser = nil
-    }
-    
     // MARK: - Sign Out User
     
     /// Clears the user session when signing out.

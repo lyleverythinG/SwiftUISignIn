@@ -96,22 +96,12 @@ class RegisterViewModel: ObservableObject {
                     // Save user data to Firestore
                     self.saveUserToFirestore(userId: userId, completion: completion)
                     
-                    self.resetFieldsData()
                     
                 case .failure(let error):
                     self.errorMessage = error.errorDescription
                 }
             }
         }
-    }
-    
-    /// Reset the fields from the registration page.
-    func resetFieldsData() {
-        self.fullName = ""
-        self.email = ""
-        self.password = ""
-        self.emailErrorMsg = ""
-        self.passwordErrorMsg = ""
     }
     
     /// Saves authenticated user details to Firestore.

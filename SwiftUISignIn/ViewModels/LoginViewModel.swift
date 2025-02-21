@@ -98,21 +98,11 @@ class LoginViewModel: ObservableObject {
                     print("Successfully logged in!")
                     UIApplication.shared.endEditing()
                     
-                    self.resetFieldsData()
-                    
                     self.isLoginSuccessful = true
                 case .failure(let error):
                     self.errorMessage = error.errorDescription
                 }
             }
         }
-    }
-    
-    /// Resets the email and password fields.
-    func resetFieldsData() {
-        self.email = ""
-        self.password = ""
-        self.emailErrorMsg = ""
-        self.passwordErrorMsg = ""
     }
 }

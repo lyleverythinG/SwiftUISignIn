@@ -9,9 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct HomeView: View {
-    @EnvironmentObject var userDataViewModel: UserDataViewModel
-    @EnvironmentObject var loginViewModel: LoginViewModel
-    @EnvironmentObject var registerViewModel: RegisterViewModel
+    @StateObject var userDataViewModel = UserDataViewModel()
     @State private var navigateToLogin = false
     
     // MARK: - Body
@@ -94,10 +92,6 @@ struct HomeView: View {
         let result = AuthService.shared.signOut()
         switch result {
         case .success:
-            // Clear all fields.
-            userDataViewModel.resetDataToDefault()
-            loginViewModel.resetFieldsData()
-            registerViewModel.resetFieldsData()
             
             navigateToLogin = true
         case .failure(let error):

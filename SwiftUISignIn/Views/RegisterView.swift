@@ -10,8 +10,7 @@ import FirebaseAuth
 
 
 struct RegisterView: View {
-    @EnvironmentObject var registerViewModel: RegisterViewModel
-    @EnvironmentObject var userDataViewModel: UserDataViewModel
+    @StateObject var registerViewModel = RegisterViewModel()
     @State private var navigateToHome = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -60,9 +59,7 @@ struct RegisterView: View {
                 
                 // Register Button
                 Button(action: {
-                    registerViewModel.register {
-                        userDataViewModel.loadUserData()
-                    }
+                    registerViewModel.register()
                 }) {
                     CustomText.headLine("Sign Up")
                         .foregroundStyle(.white)
@@ -121,7 +118,6 @@ struct RegisterView: View {
         }
         .fullScreenCover(isPresented: $navigateToHome) {
             HomeView()
-                .environmentObject(userDataViewModel)
         }
     }
 }
